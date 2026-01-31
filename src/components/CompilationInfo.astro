@@ -1,0 +1,65 @@
+---
+interface Props {
+  title: string;
+  circles: {
+    name: string;
+    url: string;
+  }[];
+  specification: string;
+  releaseDate: string;
+  price: string;
+}
+
+const {title, circles, specification, releaseDate, price} = Astro.props;
+---
+
+<div>
+    <h1 class="title">{title}</h1>
+    <div class="detail-item">
+        <span class="label">Circle:</span>
+      {circles.map(circle => (
+              <>
+                  <a class="value" href={circle.url}>{circle.name}</a>
+              </>
+      ))}
+    </div>
+    <div class="detail-item">
+        <span class="label">Specification:</span>
+        <span class="value">{specification}</span>
+    </div>
+    <div class="detail-item">
+        <span class="label">Release Date:</span>
+        <span class="value">{releaseDate}</span>
+    </div>
+    <div class="detail-item">
+        <span class="label">Price:</span>
+        <span class="value">{price}</span>
+    </div>
+</div>
+
+<style>
+    .title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .detail-item {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .label {
+        font-weight: bold;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .value {
+        color: #333;
+        font-size: 1.1rem;
+    }
+</style>

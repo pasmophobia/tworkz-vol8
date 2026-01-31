@@ -1,0 +1,69 @@
+---
+interface Props {
+  credits: Credit[];
+}
+
+type Credit = {
+  role: string;
+  name: string;
+  url?: string;
+}
+
+const { credits } = Astro.props;
+---
+
+<div class="credits">
+    <h2 class="credits-title">Credits</h2>
+    {credits.map((credit) => (
+        <div class="credit-item">
+            <span class="credit-role">{credit.role}:</span>
+            {credit.url ? (
+                <a class="credit-name" href={credit.url} target="_blank" rel="noopener noreferrer">
+                    {credit.name}
+                </a>
+            ) : (
+                <span class="credit-name">{credit.name}</span>
+            )}
+        </div>
+    ))}
+</div>
+
+<style>
+    .credits {
+        margin-top: 1rem;
+    }
+
+    .credits-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .credit-item {
+        margin-bottom: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .credit-role {
+        font-weight: bold;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .credit-name {
+        color: #333;
+        font-size: 1rem;
+        text-decoration: none;
+    }
+
+    .credit-name:hover {
+        text-decoration: underline;
+    }
+
+    a.credit-name {
+        color: #0066cc;
+    }
+</style>

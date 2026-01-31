@@ -1,0 +1,67 @@
+---
+interface Props {
+  tracks: Track[];
+}
+type Track = {
+  number: string;
+  name: string;
+  time: string;
+}
+
+const {tracks} = Astro.props;
+---
+
+{
+  tracks.map((track) => (
+  <div class="track-item">
+      <span class="track-number">{track.number}</span>
+      <span class="track-name">{track.name}</span>
+      <span class="track-time">{track.time}</span>
+  </div>
+    ))
+  }
+
+<style>
+    .track-list {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+    }
+
+    .track-list-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .track-item {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0;
+    }
+
+    .track-item:last-child {
+        border-bottom: none;
+    }
+
+    .track-number {
+        width: 2rem;
+        font-weight: bold;
+        color: #666;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+
+    .track-name {
+        flex-grow: 1;
+        margin-left: 0.5rem;
+        color: #333;
+        font-size: 1rem;
+    }
+
+    .track-time {
+        color: #666;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+</style>

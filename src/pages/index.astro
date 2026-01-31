@@ -1,11 +1,160 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import cover from '../assets/cover.png';
+import '@fontsource/twinkle-star';
+import CompilationInfo from "../components/CompilationInfo.astro";
+import Separator from "../components/Separator.astro";
+import Button from "../components/Button.astro";
+import TrackList from "../components/TrackList.astro";
+import Credit from "../components/Credit.astro";
+import Footer from "../components/Footer.astro";
+import Base from "../layouts/Base.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+type Track = {
+  number: string;
+  name: string;
+  time: string;
+}
+
+type Credit = {
+  role: string;
+  name: string;
+  url?: string;
+}
+
+const tracks: Track[] = [
+  {number: "01.", name: "ryokusho - 曠古", time: "2:33"},
+  {number: "02.", name: "pasmophobia - Mulciber", time: "3:44"},
+  {number: "03.", name: "Delphy - processing", time: "1:22"},
+  {number: "04.", name: "vPhos - Azure Dairy", time: "2:48"},
+  {number: "05.", name: "Cd - Sewer", time: "5:06"},
+  {number: "06.", name: "Yazavva - Phoque", time: "5:09"},
+  {number: "07.", name: "Tangent - Golden Record", time: "4:59"},
+  {number: "08.", name: "Oxtone - Fading Photographs", time: "5:01"},
+];
+
+const credits: Credit[] = [
+  {role: "Planning", name: "Cd", url: "https://x.com/Cadmium_music"},
+  {role: "Mastering", name: "FellInk90923148", url: "https://x.com/FellInk90923148"},
+  {role: "Cover Art & Web Design", name: "pasmophobia", url: "https://x.com/pasmophobia"},
+];
+
+const compilationInfo = {
+  title: "T.Workz vol.8",
+  circles: [
+    {
+      name: "Tech-nation Records",
+      url: "https://tech-nation.org"
+    },
+    {
+      name: "traP",
+      url: "https://trap.jp"
+    }
+  ],
+  specification: "MP3 320kbps",
+  releaseDate: "2025-09-23",
+  price: "FREE"
+};
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<Base>
+    <main class="root">
+        <div class="cover">
+            <img src={cover.src} alt="Cover"/>
+        </div>
+        <div class="compilation-details">
+            <CompilationInfo
+              {...compilationInfo}
+            />
+
+            <Separator/>
+
+            <div class="download-button">
+                <Button href="/download">
+                    Download
+                </Button>
+            </div>
+
+            <Separator/>
+
+            <div class="track-list">
+                <h2 class="track-list-title">Track List</h2>
+                <TrackList tracks={tracks}/>
+            </div>
+
+            <Separator/>
+
+            <Credit credits={credits}/>
+
+        </div>
+
+    </main>
+    <Footer/>
+</Base>
+
+<style>
+    * {
+        --width: 350px;
+        --margin: 30px;
+    }
+
+    .download-button {
+        text-align: center;
+    }
+
+    @media (min-width: 800px) {
+        .root {
+            display: flex;
+            align-items: flex-end;
+
+            width: 100%;
+
+            font-family: serif;
+        }
+
+        .cover {
+            width: 50vw;
+            height: 100vh;
+            position: sticky;
+            bottom: 0;
+        }
+
+        .cover > img {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            width: var(--width);
+            height: var(--width);
+        }
+
+        .compilation-details {
+            width: var(--width);
+            padding: calc((100vh - var(--width)) / 2) calc((50vw - var(--width)) / 2) 0 calc((50vw - var(--width)) / 2);
+        }
+
+    }
+
+    @media (max-width: 800px) {
+        .root {
+            flex-direction: column;
+        }
+
+        .cover {
+            width: 100%;
+        }
+
+        .cover > img {
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+
+            padding: 50px 0;
+
+            width: 300px;
+        }
+
+        .compilation-details {
+            padding: 0 40px;
+        }
+    }
+</style>
